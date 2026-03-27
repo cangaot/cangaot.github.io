@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexusAI</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --text: #111827;
+      --muted: #6b7280;
+      --blue: #2563eb;
+      --blue2: #3b82f6;
+      --card: rgba(255, 255, 255, 0.72);
+      --border: rgba(255, 255, 255, 0.95);
+      --shadow: 0 12px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 50% 18%, rgba(162, 230, 255, 0.30), transparent 22%),
+        radial-gradient(circle at 52% 10%, rgba(181, 164, 255, 0.18), transparent 18%),
+        linear-gradient(180deg, #f9fafb 0%, #f5f7fb 100%);
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 20px 56px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px 0 20px;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: 78px;
+      line-height: 1.04;
+      font-weight: 900;
+      letter-spacing: -3px;
+      margin-bottom: 22px;
+    }
+
+    .shine-text {
+      display: inline-block;
+      color: #111827;
+      background: linear-gradient(
+        110deg,
+        #111827 0%,
+        #111827 40%,
+        #cfd4dc 46%,
+        #ffffff 50%,
+        #cfd4dc 54%,
+        #111827 60%,
+        #111827 100%
+      );
+      background-size: 240% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shineMove 4.8s ease-in-out infinite;
+    }
+
+    @keyframes shineMove {
+      0% {
+        background-position: 140% 0;
+      }
+      100% {
+        background-position: -40% 0;
+      }
+    }
+
+    .subtitle {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #4b5563;
+      margin-bottom: 14px;
+    }
+
+    .desc {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--muted);
+    }
+
+    .api-box {
+      margin: 30px auto 0;
+      max-width: 760px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .api-label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .api-url {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--blue);
+      word-break: break-all;
+    }
+
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 26px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      color: #fff;
+      background: linear-gradient(135deg, var(--blue), var(--blue2));
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.24);
+    }
+
+    .btn-primary:hover {
+      opacity: 0.96;
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    .btn-secondary:hover {
+      background: #fff;
+    }
+
+    .features {
+      margin-top: 72px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px 22px;
+      box-shadow: 0 12px 34px rgba(15, 23, 42, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: 42px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: #9ca3af;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .hero-title {
+        font-size: 56px;
+        letter-spacing: -2px;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding-top: 18px;
+      }
+
+      .hero-title {
+        font-size: 40px;
+        letter-spacing: -1px;
+      }
+
+      .subtitle {
+        font-size: 16px;
+      }
+
+      .desc {
+        font-size: 15px;
+      }
+
+      .footer {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="hero">
+      <div class="hero-inner">
+        <div class="badge">NexusAI · Unified Model API Gateway</div>
+
+        <h1 class="hero-title">
+          <span class="shine-text">统一的</span><br />
+          <span class="shine-text">大模型接口网关</span>
+        </h1>
+
+        <p class="subtitle">
+          更好的价格，更好的稳定性，更简单的接入方式。
+        </p>
+
+        <p class="desc">
+          NexusAI 是一个专注于为开发者与企业用户提供高效、稳定、易接入的模型 API 平台。
+          我们整合多种先进 AI 模型能力，覆盖文本生成、智能对话、内容创作、数据处理等多种场景，
+          帮助用户快速搭建自己的 AI 应用与服务。
+        </p>
+
+        <div class="api-box">
+          <div class="api-label">Base URL</div>
+          <div class="api-url">https://nexusaibook.vip/v1</div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="/token">获取密钥</a>
+          <a class="btn btn-secondary" href="/docs">查看文档</a>
+        </div>
+
+        <section class="features">
+          <div class="card">
+            <h3>稳定接入</h3>
+            <p>提供统一兼容的 API 接口，降低模型切换成本，帮助开发者快速完成接入与部署。</p>
+          </div>
+          <div class="card">
+            <h3>模型丰富</h3>
+            <p>支持多种主流模型能力，覆盖文本生成、智能问答、编程辅助、内容创作等常见场景。</p>
+          </div>
+          <div class="card">
+            <h3>高效可用</h3>
+            <p>兼顾响应速度、使用体验与可维护性，让企业与个人开发者都能更轻松地构建 AI 应用。</p>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>© 2026 NexusAI. 版权所有</div>
+      <div>设计与开发由 NexusAI 提供</div>
+    </footer>
+  </div>
+</body>
+</html>
